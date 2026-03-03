@@ -9,7 +9,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/node/Dockerfile
-    
+
     # こうしておくことで後で3000ポートからアクセスすることが可能になる。
     ports:
       - 3000:3000
@@ -20,3 +20,14 @@ services:
     # tty: true とすることによりコンテナを継続させる。以下URLを参照。 
     # https://zenn.dev/hohner/articles/43a0da20181d34
     tty: true
+
+  python:
+    container_name: python
+    build:
+      context: .
+      dockerfile: ./docker/python/Dockerfile
+    ports:
+      - 5000:5000
+    tty: true
+    volumes:
+      - ./app/python:/app
