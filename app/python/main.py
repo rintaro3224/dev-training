@@ -1,10 +1,11 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from machine_learning import predictOnAPI
+from machine_learning.titanic import PredictOnAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 
 app = FastAPI()
+
 
 
 app.add_middleware(
@@ -30,6 +31,13 @@ class SchemaOfTitanicFeaturesRequest(BaseModel):
     SibSp:int
     
 
-@app.post('/api/titanic', response_model=SchemaOfTitanicFeaturesRequest)
+@app.post('/api/titanic')
 def get_titanic_features(request_body: SchemaOfTitanicFeaturesRequest):
-    return request_body
+    survival_probability = PredictOnAPI.derive_survival_probability(
+        Sex=request_body.Sex,
+        Pclass=request_body.Pclass,
+        Age=request_body.Age,
+        Parch=request_body.Parch,
+        SibSp=request_body.SibSp
+    )
+    return {"survival_probability": survival_probability}

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, reactive} from 'vue'
+import { ref, reactive } from 'vue'
 import axios from 'axios'
 
 type typeOfFeatures = {
@@ -19,7 +19,7 @@ const features = reactive<typeOfFeatures>({
 })
 
 // 生存確率を格納するための箱を作る
-const survivalProbability = ref<number|undefined>()
+const survivalProbability = ref<number | undefined>()
 
 // バリデーションのための関数を定義
 const validateRequestValues = (): boolean => {
@@ -44,7 +44,7 @@ const displayOutput = (): void => {
   // バリデーションの実行
   const validationResult: boolean = validateRequestValues()
   // バリデーションに成功していれば axios を実行
-  if (validationResult === true) {  
+  if (validationResult === true) {
     // axios.post で POST メソッドを実行することを指示。
     // 第一引数にエンドポイント, 第二引数にリクエストボディを指定。
     axios.post(
@@ -59,7 +59,7 @@ const displayOutput = (): void => {
       // catch 以下では問題があった際の挙動を記述
       () => {
         alert('エラーが発生しました。')
-      } 
+      }
     )
   }
 }
@@ -78,7 +78,7 @@ const displayOutput = (): void => {
     <select class="select select-primary mb-4" v-model="features.Pclass">
       <option disabled selected>階級は？</option>
       <option>上層クラス（お金持ち）</option>
-      <option>中級クラス（一般階層）</option>
+      <option>中級クラス（一般階級）</option>
       <option>下層クラス（労働階級）</option>
     </select>
     <br>
@@ -105,9 +105,9 @@ const displayOutput = (): void => {
     <br>
     <button class="btn btn-primary" v-on:click="displayOutput()">結果を出力</button>
     <template v-if="survivalProbability !== undefined">
-     <div class="alert alert-error mt-4 ">
-       あなたの生存確率は {{ Math.round(survivalProbability) }} % です。
-     </div>
-   </template>
+      <div class="alert alert-error mt-4 ">
+        あなたの生存確率は {{ Math.round(survivalProbability) }} % です。
+      </div>
+    </template>
   </div>
 </template>
